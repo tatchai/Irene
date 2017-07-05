@@ -23,21 +23,37 @@ namespace Irene.Services {
     }
 
     public override int SaveChanges() {
-      foreach (var item in All(fromLocal: true)) {
-        if (item.Id == Guid.Empty) {
-          if (All().Any(x => x.Id != item.Id && x.UserName == item.UserName)) {
+      foreach (var user in All(fromLocal: true)) {
+        if (IsNewUser(user)) {
+
+          // Check existing UserName
+          if (All().Any(x => x.Id != user.Id && x.UserName == user.UserName)) {
             throw new Exception();
           }
 
-          string pin;
-          do {
-            pin = GeneratePIN();
-          } while (All().Any(x => x.PIN == pin));
-          item.PIN = pin;
+          // Create PIN  
+          user.PIN = GenerateUniquePIN();
+
+          // Mark records
+          user.CreatedDate = DateTime.Now;
+          user.CreatedByUserName = string.Empty;
+          user.LastVisibleDate = null;
         }
       }
       return base.SaveChanges();
     }
+
+    private static bool IsNewUser(User item) {
+      return item.Id == Guid.Empty;
+    }
+
+    private string GenerateUniquePIN() {
+      string pin;
+      do {
+        pin = GeneratePIN();
+      } while (All().Any(x => x.PIN == pin));
+      return pin;
+    } 
 
     private string GeneratePIN() {
       return DateTime.Now.ToString("mmssff");
