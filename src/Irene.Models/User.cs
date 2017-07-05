@@ -52,10 +52,16 @@ namespace Irene.Models {
 
     // Methods 
     public void Active() {
+      if (Status == UserStatus.Disabled) {
+        throw new Exception();
+      }
       Status = UserStatus.Active;
     }
 
     public void Suspend() {
+      if (Status == UserStatus.Disabled) {
+        throw new Exception();
+      }
       Status = UserStatus.Suspended;
     }
 
