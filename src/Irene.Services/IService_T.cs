@@ -12,6 +12,6 @@ namespace Irene.Services {
     T Add(T item);
     T Remove(T item);
 
-    int SaveChanges();
+    void OnSaveChanges();
   }
 }
