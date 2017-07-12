@@ -32,5 +32,30 @@ namespace Irene.WinApp {
     private void Form1_FormClosed(object sender, FormClosedEventArgs e) {
       ((IDisposable)app).Dispose();
     }
+
+    private void button2_Click(object sender, EventArgs e) {
+      var users = app.Users.All().ToList();
+      lstUsers.DataSource = users;
+    }
+
+    private User SelectedUser {
+      get { 
+        return (User)lstUsers.SelectedItem;
+      }
+    }
+    private void Activate_Click(object sender, EventArgs e) {
+      SelectedUser?.Active();
+      app.SaveChanges();
+    }
+
+    private void button1_Click_1(object sender, EventArgs e) {
+      SelectedUser?.Suspend();
+      app.SaveChanges();
+    }
+
+    private void button2_Click_1(object sender, EventArgs e) {
+      SelectedUser?.Disable();
+      app.SaveChanges();
+    }
   }
 }
