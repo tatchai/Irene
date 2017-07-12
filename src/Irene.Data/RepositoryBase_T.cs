@@ -6,10 +6,14 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Irene.Data {
-  public class RepositoryBase<T> : IRepository<T> where T : class {
+  public abstract class RepositoryBase<T> : IRepository<T> where T : class {
 
     private readonly DbContext _context;
 
+    public RepositoryBase(): this(new AppDb()) {
+      //
+    }
+    
     public RepositoryBase(DbContext context) {
       _context = context;
     }
@@ -31,10 +35,6 @@ namespace Irene.Data {
 
     public T Remove(T item) {
       return _context.Set<T>().Remove(item);
-    }
-
-    public int SaveChanges() {
-      return _context.SaveChanges();
-    }
+    } 
   }
 }

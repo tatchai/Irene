@@ -5,8 +5,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PostSharp.Patterns.Diagnostics;
+using PostSharp.Extensibility;
 
 namespace Irene.Models {
+  //[Log(AttributeTargetMemberAttributes = MulticastAttributes.Public)]
   public class User {
 
     public User() : this("USER") {
@@ -21,6 +24,7 @@ namespace Irene.Models {
     public Guid Id { get; set; }
 
     [Required]
+    [StringLength(30)]
     public string UserName { get; set; }
 
     public string PasswordHash { get; set; }
@@ -28,7 +32,9 @@ namespace Irene.Models {
     [StringLength(6, MinimumLength = 6)]
     public string PIN { get; set; }
 
+    #region Enum To String
     private UserStatus _Status;
+    private string _StatusText;
 
     [NotMapped]
     public UserStatus Status {
@@ -39,7 +45,16 @@ namespace Irene.Models {
       }
     }
 
-    public string StatusText { get; private set; }
+    public string StatusText {
+      get {
+        return _StatusText;
+      }
+      set {
+        _StatusText = value;
+        _Status = (UserStatus)Enum.Parse(typeof(UserStatus), value);
+      }
+    }
+    #endregion
 
     public DateTime CreatedDate { get; set; }
     public string CreatedByUserName { get; set; }

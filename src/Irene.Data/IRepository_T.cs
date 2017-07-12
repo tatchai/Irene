@@ -10,7 +10,6 @@ namespace Irene.Data {
     IQueryable<T> Query(Func<T, bool> criteria, bool fromLocal = false);
 
     T Add(T item);
-    T Remove(T item);
-    int SaveChanges();
+    T Remove(T item); 
   }
 }

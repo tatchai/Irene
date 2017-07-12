@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App.cs" />
     <Compile Include="IService_T.cs" />
     <Compile Include="IUserService.cs" />
     <Compile Include="ServiceBase_T.cs" />

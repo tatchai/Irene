@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 using System.Data.Entity;
 
 namespace Irene.Data {
-  public class UserRepository : RepositoryBase<User> {
+
+  public class UserRepository : RepositoryBase<User> { 
     public UserRepository(DbContext context) : base(context) {
     }
   }
