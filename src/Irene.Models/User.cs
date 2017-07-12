@@ -83,5 +83,9 @@ namespace Irene.Models {
     public void Disable() {
       Status = UserStatus.Disabled;
     }
+
+    public override string ToString() {
+      return $"{UserName} ({Status})";
+    }
   }
 }
