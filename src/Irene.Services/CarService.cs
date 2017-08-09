@@ -7,15 +7,11 @@ using System.Threading.Tasks;
 using Irene.Data;
 
 namespace Irene.Services {
-  public class CarService : ServiceBase<Car> {
+  public class CarService : ServiceBase<Car, int> {
     public CarService(UnitOfWork uow) : base(uow) {
       //
     }
-
-    public override Car Find(params object[] keys) {
-      int id = (int)keys[0];
-      return Query(c => c.Id == id).SingleOrDefault();
-    }
+     
 
     public override Car Add(Car item) {
       if (item.Color.Length > 4)

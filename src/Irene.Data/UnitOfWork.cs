@@ -10,22 +10,35 @@ namespace Irene.Data {
 
     private AppDb db = new AppDb();
 
+    // TODO 1.
     public UserRepository UserRepository { get; }
+    public UserGroupRepository UserGroupRepository { get; }
+    public RoleRepository RoleRepository { get; }
 
-    private Dictionary<Type, object> col = new Dictionary<Type, object>();
-    private Dictionary<Type, Type> entityToRepos = new Dictionary<Type, Type>();
+    private Dictionary<Type, object> col = new Dictionary<Type, object>(); 
 
-    public UnitOfWork() {
-      entityToRepos.Add(typeof(User), typeof(UserRepository));
+    public UnitOfWork() { 
+      // TODO 2.
       col.Add(typeof(User), new Lazy<UserRepository>(() => new UserRepository(db)));
+      col.Add(typeof(UserGroup), new Lazy<UserGroupRepository>(() => new UserGroupRepository(db)));
+      col.Add(typeof(Role), new Lazy<RoleRepository>(() => new RoleRepository(db)));
     }
 
     public IRepository<T> Repo<T>() where T : class {
-      var c = (Lazy<UserRepository>)col[typeof(T)]; // Lazy of Repo
-      return (IRepository<T>)c.Value; 
-    } 
+      // TODO 3.
+      if (typeof(T) == typeof(User)) {
+        return (IRepository<T>)((Lazy<UserRepository>)col[typeof(T)]).Value;
+      }
+      else if (typeof(T) == typeof(UserGroup)) {
+        return (IRepository<T>)((Lazy<UserGroupRepository>)col[typeof(T)]).Value;
+      }
+      else if (typeof(T) == typeof(Role)) {
+        return (IRepository<T>)((Lazy<RoleRepository>)col[typeof(T)]).Value;
+      }
+      return null; 
+    }
 
-    public int SaveChanges() { 
+    public int SaveChanges() {
       return db.SaveChanges();
     }
 

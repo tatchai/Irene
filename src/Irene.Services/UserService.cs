@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Irene.Services {
   // SUT
-  public class UserService : ServiceBase<User> {
+  public class UserService : ServiceBase<User, Guid> {
 
     public UserService(UnitOfWork uow) : base(uow) {
     }
@@ -17,11 +17,7 @@ namespace Irene.Services {
     public override User Add(User item) {
       return base.Add(item);
     }
-
-    public override User Find(params object[] keys) {
-      var id = (Guid)keys[0];
-      return Query(item => item.Id == id).SingleOrDefault();
-    }
+     
 
     public override void OnSaveChanges() {
       foreach (var user in All(fromLocal: true)) {

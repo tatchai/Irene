@@ -11,7 +11,10 @@ using System.Threading.Tasks;
 namespace Irene.Data {
   public class AppDb : DbContext {
 
+    public DbSet<Role> Roles { get; set; }
     public DbSet<User> Users { get; set; }
+    public DbSet<UserGroup> UserGroups { get; set; }
+
     public DbSet<Car> Cars { get; set; }
 
     protected override void OnModelCreating(DbModelBuilder modelBuilder) {

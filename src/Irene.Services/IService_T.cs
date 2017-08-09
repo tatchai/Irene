@@ -12,6 +12,9 @@ namespace Irene.Services {
     T Add(T item);
     T Remove(T item);
 
+    DisconnectedList<T> GetDisconnectedList(Func<T, bool> condition);
+    void MergeWithDisconnectedList(DisconnectedList<T> list);
+
     void OnSaveChanges();
   }
 }

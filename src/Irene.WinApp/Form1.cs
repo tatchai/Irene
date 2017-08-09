@@ -91,7 +91,7 @@ namespace Irene.WinApp {
 
     private void button3_Click(object sender, EventArgs e) {
       int n = app.SaveChanges();
-      MessageBox.Show(n.ToString());
+      //MessageBox.Show(n.ToString());
     }
 
     private void bindingSource2_ListChanged(object sender, ListChangedEventArgs e) {
@@ -101,7 +101,7 @@ namespace Irene.WinApp {
       try
       {
         int n = app.SaveChanges();
-        MessageBox.Show(n.ToString()); 
+        //MessageBox.Show(n.ToString()); 
       }
       catch (DbEntityValidationException ex)
       {
@@ -110,6 +110,10 @@ namespace Irene.WinApp {
           
         }
       }
+
+    }
+
+    private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e) {
 
     }
   }

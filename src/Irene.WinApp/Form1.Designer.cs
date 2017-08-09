@@ -32,12 +32,6 @@
       this.button1 = new System.Windows.Forms.Button();
       this.button2 = new System.Windows.Forms.Button();
       this.dataGridView1 = new System.Windows.Forms.DataGridView();
-      this.dataGridView2 = new System.Windows.Forms.DataGridView();
-      this.colorDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.idDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.commentDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.bindingSource2 = new System.Windows.Forms.BindingSource(this.components);
-      this.carBindingSource = new System.Windows.Forms.BindingSource(this.components);
       this.userNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.passwordHashDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.pINDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -56,6 +50,12 @@
       this.friendlyNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.commentDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.dataGridView2 = new System.Windows.Forms.DataGridView();
+      this.colorDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.idDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.commentDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.bindingSource2 = new System.Windows.Forms.BindingSource(this.components);
+      this.carBindingSource = new System.Windows.Forms.BindingSource(this.components);
       this.button3 = new System.Windows.Forms.Button();
       ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -160,48 +160,7 @@
       this.dataGridView1.Name = "dataGridView1";
       this.dataGridView1.Size = new System.Drawing.Size(309, 180);
       this.dataGridView1.TabIndex = 6;
-      // 
-      // dataGridView2
-      // 
-      this.dataGridView2.AutoGenerateColumns = false;
-      this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-      this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.colorDataGridViewTextBoxColumn,
-            this.idDataGridViewTextBoxColumn1,
-            this.commentDataGridViewTextBoxColumn});
-      this.dataGridView2.DataSource = this.bindingSource2;
-      this.dataGridView2.Location = new System.Drawing.Point(128, 232);
-      this.dataGridView2.Name = "dataGridView2";
-      this.dataGridView2.Size = new System.Drawing.Size(615, 174);
-      this.dataGridView2.TabIndex = 7;
-      // 
-      // colorDataGridViewTextBoxColumn
-      // 
-      this.colorDataGridViewTextBoxColumn.DataPropertyName = "Color";
-      this.colorDataGridViewTextBoxColumn.HeaderText = "Color";
-      this.colorDataGridViewTextBoxColumn.Name = "colorDataGridViewTextBoxColumn";
-      // 
-      // idDataGridViewTextBoxColumn1
-      // 
-      this.idDataGridViewTextBoxColumn1.DataPropertyName = "Id";
-      this.idDataGridViewTextBoxColumn1.HeaderText = "Id";
-      this.idDataGridViewTextBoxColumn1.Name = "idDataGridViewTextBoxColumn1";
-      // 
-      // commentDataGridViewTextBoxColumn
-      // 
-      this.commentDataGridViewTextBoxColumn.DataPropertyName = "Comment";
-      this.commentDataGridViewTextBoxColumn.HeaderText = "Comment";
-      this.commentDataGridViewTextBoxColumn.Name = "commentDataGridViewTextBoxColumn";
-      // 
-      // bindingSource2
-      // 
-      this.bindingSource2.DataSource = typeof(Irene.Models.Car);
-      this.bindingSource2.CurrentItemChanged += new System.EventHandler(this.bindingSource2_CurrentItemChanged);
-      this.bindingSource2.ListChanged += new System.ComponentModel.ListChangedEventHandler(this.bindingSource2_ListChanged);
-      // 
-      // carBindingSource
-      // 
-      this.carBindingSource.DataSource = typeof(Irene.Models.Car);
+      this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
       // 
       // userNameDataGridViewTextBoxColumn
       // 
@@ -315,6 +274,48 @@
       this.commentDataGridViewTextBoxColumn1.DataPropertyName = "Comment";
       this.commentDataGridViewTextBoxColumn1.HeaderText = "Comment";
       this.commentDataGridViewTextBoxColumn1.Name = "commentDataGridViewTextBoxColumn1";
+      // 
+      // dataGridView2
+      // 
+      this.dataGridView2.AutoGenerateColumns = false;
+      this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+      this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colorDataGridViewTextBoxColumn,
+            this.idDataGridViewTextBoxColumn1,
+            this.commentDataGridViewTextBoxColumn});
+      this.dataGridView2.DataSource = this.bindingSource2;
+      this.dataGridView2.Location = new System.Drawing.Point(128, 232);
+      this.dataGridView2.Name = "dataGridView2";
+      this.dataGridView2.Size = new System.Drawing.Size(615, 174);
+      this.dataGridView2.TabIndex = 7;
+      // 
+      // colorDataGridViewTextBoxColumn
+      // 
+      this.colorDataGridViewTextBoxColumn.DataPropertyName = "Color";
+      this.colorDataGridViewTextBoxColumn.HeaderText = "Color";
+      this.colorDataGridViewTextBoxColumn.Name = "colorDataGridViewTextBoxColumn";
+      // 
+      // idDataGridViewTextBoxColumn1
+      // 
+      this.idDataGridViewTextBoxColumn1.DataPropertyName = "Id";
+      this.idDataGridViewTextBoxColumn1.HeaderText = "Id";
+      this.idDataGridViewTextBoxColumn1.Name = "idDataGridViewTextBoxColumn1";
+      // 
+      // commentDataGridViewTextBoxColumn
+      // 
+      this.commentDataGridViewTextBoxColumn.DataPropertyName = "Comment";
+      this.commentDataGridViewTextBoxColumn.HeaderText = "Comment";
+      this.commentDataGridViewTextBoxColumn.Name = "commentDataGridViewTextBoxColumn";
+      // 
+      // bindingSource2
+      // 
+      this.bindingSource2.DataSource = typeof(Irene.Models.Car);
+      this.bindingSource2.CurrentItemChanged += new System.EventHandler(this.bindingSource2_CurrentItemChanged);
+      this.bindingSource2.ListChanged += new System.ComponentModel.ListChangedEventHandler(this.bindingSource2_ListChanged);
+      // 
+      // carBindingSource
+      // 
+      this.carBindingSource.DataSource = typeof(Irene.Models.Car);
       // 
       // button3
       // 
