@@ -7,10 +7,12 @@ using System.Text;
 using System.Threading.Tasks;
 using PostSharp.Patterns.Diagnostics;
 using PostSharp.Extensibility;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace Irene.Models {
   //[Log(AttributeTargetMemberAttributes = MulticastAttributes.Public)]
-  public class User {
+  public class User : EntityBase<Guid>, INotifyPropertyChanged {
 
     public User() : this("USER") {
     }
@@ -18,14 +20,19 @@ namespace Irene.Models {
     public User(string userName) {
       UserName = userName;
       Status = UserStatus.Suspended;
-    }
-
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public Guid Id { get; set; }
+      Cars = new List<Car>();
+    } 
+     
+    private string _userName;
 
     [Required]
     [StringLength(30)]
-    public string UserName { get; set; }
+    public string UserName
+    {
+      get { return _userName; }
+      set { _userName = value; NotifyPropertyChanged(); }
+    }
+
 
     public string PasswordHash { get; set; }
 
@@ -36,22 +43,31 @@ namespace Irene.Models {
     private UserStatus _Status;
     private string _StatusText;
 
+    public event PropertyChangedEventHandler PropertyChanged;
+
     [NotMapped]
-    public UserStatus Status {
+    public UserStatus Status
+    {
       get { return _Status; }
-      private set {
+      private set
+      {
         _Status = value;
         StatusText = _Status.ToString();
+        NotifyPropertyChanged();
       }
     }
 
-    public string StatusText {
-      get {
+    public string StatusText
+    {
+      get
+      {
         return _StatusText;
       }
-      set {
+      set
+      {
         _StatusText = value;
         _Status = (UserStatus)Enum.Parse(typeof(UserStatus), value);
+        NotifyPropertyChanged();
       }
     }
     #endregion
@@ -64,28 +80,38 @@ namespace Irene.Models {
     public string Mobile { get; set; }
     public string Note { get; set; }
 
+    public virtual ICollection<Car> Cars { get; set; }
+
+
+    private void NotifyPropertyChanged([CallerMemberName] String propertyName = "") {
+      PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
 
     // Methods 
+    public bool CanActivate => Status == UserStatus.Suspended;
+    public bool CanSuspend => Status == UserStatus.Active;
+    public bool CanDisable => Status != UserStatus.Disabled;
+
     public void Active() {
-      if (Status == UserStatus.Disabled) {
-        throw new Exception();
-      }
+      if (!CanActivate) throw new Exception();
       Status = UserStatus.Active;
     }
 
     public void Suspend() {
-      if (Status == UserStatus.Disabled) {
-        throw new Exception();
-      }
+      if (!CanSuspend) throw new Exception();
       Status = UserStatus.Suspended;
     }
 
     public void Disable() {
+      if (!CanDisable) throw new Exception();
       Status = UserStatus.Disabled;
     }
 
     public override string ToString() {
       return $"{UserName} ({Status})";
     }
+
+    public string FriendlyName => ToString();
   }
 }

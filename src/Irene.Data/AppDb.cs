@@ -12,8 +12,13 @@ namespace Irene.Data {
   public class AppDb : DbContext {
 
     public DbSet<User> Users { get; set; }
+    public DbSet<Car> Cars { get; set; }
 
     protected override void OnModelCreating(DbModelBuilder modelBuilder) {
+      modelBuilder.Entity<User>()
+        .Property(u => u.Id)
+        .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+
       modelBuilder.Entity<User>()
         .Property(u => u.PIN)
         .HasColumnAnnotation(

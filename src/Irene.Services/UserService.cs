@@ -36,7 +36,7 @@ namespace Irene.Services {
           // Must assign PIN manually before save to database.
           // Call GenerateUniquePIN method.
           // user.PIN = GenerateUniquePIN();
-           
+
           ValidatePIN(user);
 
           // Mark records
