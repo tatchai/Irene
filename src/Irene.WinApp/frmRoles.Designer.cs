@@ -46,7 +46,7 @@
       this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
       this.panel1.Location = new System.Drawing.Point(0, 0);
       this.panel1.Name = "panel1";
-      this.panel1.Size = new System.Drawing.Size(360, 45);
+      this.panel1.Size = new System.Drawing.Size(412, 45);
       this.panel1.TabIndex = 0;
       // 
       // btnLoad
@@ -71,9 +71,9 @@
       // 
       // statusStrip1
       // 
-      this.statusStrip1.Location = new System.Drawing.Point(0, 327);
+      this.statusStrip1.Location = new System.Drawing.Point(0, 199);
       this.statusStrip1.Name = "statusStrip1";
-      this.statusStrip1.Size = new System.Drawing.Size(360, 22);
+      this.statusStrip1.Size = new System.Drawing.Size(412, 22);
       this.statusStrip1.TabIndex = 1;
       this.statusStrip1.Text = "statusStrip1";
       // 
@@ -89,7 +89,7 @@
       this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
       this.dataGridView1.Location = new System.Drawing.Point(0, 45);
       this.dataGridView1.Name = "dataGridView1";
-      this.dataGridView1.Size = new System.Drawing.Size(360, 282);
+      this.dataGridView1.Size = new System.Drawing.Size(412, 154);
       this.dataGridView1.TabIndex = 2;
       // 
       // idDataGridViewTextBoxColumn
@@ -119,7 +119,7 @@
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(360, 349);
+      this.ClientSize = new System.Drawing.Size(412, 221);
       this.Controls.Add(this.dataGridView1);
       this.Controls.Add(this.statusStrip1);
       this.Controls.Add(this.panel1);

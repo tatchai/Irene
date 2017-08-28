@@ -21,6 +21,7 @@ namespace Irene.Models {
       UserName = userName;
       Status = UserStatus.Suspended;
       Cars = new List<Car>();
+      Groups = new ObservableListSource<UserGroup>();
     } 
      
     private string _userName;
@@ -32,8 +33,7 @@ namespace Irene.Models {
       get { return _userName; }
       set { _userName = value; NotifyPropertyChanged(); }
     }
-
-
+    
     public string PasswordHash { get; set; }
 
     [StringLength(6, MinimumLength = 6)]
@@ -80,6 +80,7 @@ namespace Irene.Models {
     public string Mobile { get; set; }
     public string Note { get; set; }
 
+    public virtual ObservableListSource<UserGroup> Groups { get; set; }
     public virtual ICollection<Car> Cars { get; set; }
 
 

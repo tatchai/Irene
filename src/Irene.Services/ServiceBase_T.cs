@@ -49,6 +49,10 @@ namespace Irene.Services {
       return result;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="disconnectedList"></param>
     public void MergeWithDisconnectedList(DisconnectedList<T> disconnectedList) {
       var origin = Query(disconnectedList.Condition).ToList();
 
