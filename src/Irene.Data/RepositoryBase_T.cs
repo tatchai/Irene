@@ -10,10 +10,10 @@ namespace Irene.Data {
 
     private readonly DbContext _context;
 
-    public RepositoryBase(): this(new AppDb()) {
+    public RepositoryBase() : this(new AppDb()) {
       //
     }
-    
+
     public RepositoryBase(DbContext context) {
       _context = context;
     }
