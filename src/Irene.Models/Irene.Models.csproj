@@ -23,6 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <SkipPostSharp>True</SkipPostSharp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -61,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Car.cs" />
     <Compile Include="EntityBase.cs" />
+    <Compile Include="MapItem.cs" />
     <Compile Include="ObservableListSource.cs" />
     <Compile Include="RentalCar.cs" />
     <Compile Include="Role.cs" />

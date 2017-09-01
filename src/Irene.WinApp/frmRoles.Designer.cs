@@ -126,7 +126,6 @@
       this.Name = "frmRoles";
       this.Text = "Roles";
       this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmRoles_FormClosed);
-      this.Load += new System.EventHandler(this.frmRoles_Load);
       this.panel1.ResumeLayout(false);
       ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.bs1)).EndInit();

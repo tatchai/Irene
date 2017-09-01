@@ -7,10 +7,15 @@ using System.Threading.Tasks;
 using Irene.Data;
 
 namespace Irene.Services {
-  public class UserGroupService : ServiceBase<UserGroup, int> {
-    public UserGroupService(UnitOfWork uow) : base(uow) {
-      //
+  public class UserGroupService : ServiceBase<UserGroup, int> , IUserGroupService {
+    private readonly UserService userService;
+
+    public UserGroupService(UnitOfWork uow, UserService userService) : base(uow) {
+      this.userService = userService;
     }
-      
+
+    public IEnumerable<User> AvailableUsersToAddToGroup(UserGroup group) {
+     return userService.All().Except(group.Users).AsEnumerable();
+    }
   }
 }

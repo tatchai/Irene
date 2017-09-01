@@ -28,7 +28,7 @@
       this.btnGetUsers = new System.Windows.Forms.Button();
       this.lstUsers = new System.Windows.Forms.ListBox();
       this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-      this.Activate = new System.Windows.Forms.Button();
+      this.btnActivate = new System.Windows.Forms.Button();
       this.button1 = new System.Windows.Forms.Button();
       this.button2 = new System.Windows.Forms.Button();
       this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -101,16 +101,16 @@
       this.bindingSource1.DataSource = typeof(Irene.Models.User);
       this.bindingSource1.CurrentChanged += new System.EventHandler(this.bindingSource1_CurrentChanged);
       // 
-      // Activate
+      // btnActivate
       // 
-      this.Activate.DataBindings.Add(new System.Windows.Forms.Binding("Enabled", this.bindingSource1, "CanActivate", true));
-      this.Activate.Location = new System.Drawing.Point(225, 112);
-      this.Activate.Name = "Activate";
-      this.Activate.Size = new System.Drawing.Size(75, 23);
-      this.Activate.TabIndex = 3;
-      this.Activate.Text = "Activate";
-      this.Activate.UseVisualStyleBackColor = true;
-      this.Activate.Click += new System.EventHandler(this.Activate_Click);
+      this.btnActivate.DataBindings.Add(new System.Windows.Forms.Binding("Enabled", this.bindingSource1, "CanActivate", true));
+      this.btnActivate.Location = new System.Drawing.Point(225, 112);
+      this.btnActivate.Name = "btnActivate";
+      this.btnActivate.Size = new System.Drawing.Size(75, 23);
+      this.btnActivate.TabIndex = 3;
+      this.btnActivate.Text = "Activate";
+      this.btnActivate.UseVisualStyleBackColor = true;
+      this.btnActivate.Click += new System.EventHandler(this.Activate_Click);
       // 
       // button1
       // 
@@ -337,7 +337,7 @@
       this.Controls.Add(this.dataGridView1);
       this.Controls.Add(this.button2);
       this.Controls.Add(this.button1);
-      this.Controls.Add(this.Activate);
+      this.Controls.Add(this.btnActivate);
       this.Controls.Add(this.lstUsers);
       this.Controls.Add(this.btnGetUsers);
       this.Controls.Add(this.btnAddUser);
@@ -359,7 +359,7 @@
     private System.Windows.Forms.Button btnAddUser;
     private System.Windows.Forms.Button btnGetUsers;
     private System.Windows.Forms.ListBox lstUsers;
-    private System.Windows.Forms.Button Activate;
+    private System.Windows.Forms.Button btnActivate;
     private System.Windows.Forms.Button button1;
     private System.Windows.Forms.Button button2;
         private System.Windows.Forms.BindingSource bindingSource1;

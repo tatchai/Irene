@@ -12,7 +12,7 @@ using System.Runtime.CompilerServices;
 
 namespace Irene.Models {
   //[Log(AttributeTargetMemberAttributes = MulticastAttributes.Public)]
-  public class User : EntityBase<Guid>, INotifyPropertyChanged {
+  public class User : EntityBase<Guid> {
 
     public User() : this("USER") {
     }
@@ -43,7 +43,6 @@ namespace Irene.Models {
     private UserStatus _Status;
     private string _StatusText;
 
-    public event PropertyChangedEventHandler PropertyChanged;
 
     [NotMapped]
     public UserStatus Status
@@ -82,13 +81,7 @@ namespace Irene.Models {
 
     public virtual ObservableListSource<UserGroup> Groups { get; set; }
     public virtual ICollection<Car> Cars { get; set; }
-
-
-    private void NotifyPropertyChanged([CallerMemberName] String propertyName = "") {
-      PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-
-
+     
     // Methods 
     public bool CanActivate => Status == UserStatus.Suspended;
     public bool CanSuspend => Status == UserStatus.Active;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Irene.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,7 @@ namespace Irene.Services {
 
     DisconnectedList<T> GetDisconnectedList(Func<T, bool> condition);
     void MergeWithDisconnectedList(DisconnectedList<T> list);
+    //void Sync(ICollection<T> source, ICollection<MapItem<TKey>> mapItems);
 
     void OnSaveChanges();
   }

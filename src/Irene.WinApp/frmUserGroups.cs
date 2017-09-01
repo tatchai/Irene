@@ -16,76 +16,147 @@ namespace Irene.WinApp {
     private App _app = new App();
     private DisconnectedList<UserGroup> _list;
 
+    private UserGroup PreviousItem { get; set; }
+    private int? PreviousItemPosition = null;
+    private UserGroup CurrentItem => bsUserGroups.Current as UserGroup;
+
+    // tab Roles
+    private List<Role> _roles;
+    private List<MapItemInt> _mapItems; 
+
+    // tab Users
+    private User CurrentUserFromAllUsers => bsUsers.Current as User;
+    private User CurrentUserFromUsersInGroup => bsUsersInGroup.Current as User;
+    private List<User> availableUsersToAddToGroup = new List<User>();
+
 
     public frmUserGroups() {
       InitializeComponent();
     }
 
     private void frmUserGroups_Load(object sender, EventArgs e) {
-
-    }
-
-    private void button1_Click(object sender, EventArgs e) {
-      _list = _app.UserGroups.GetDisconnectedList(x => true); // x.Name.StartsWith("R"));
-      bsUserGroups.DataSource = _list.List;
-
+      roleBindingSource.DataSource = _app.Roles.All().ToList(); // .tolist(); //.GetDisconnectedList(i => true).List;
+      PreviousItem = null;
     }
 
     private void frmUserGroups_FormClosed(object sender, FormClosedEventArgs e) {
       ((IDisposable)_app).Dispose();
     }
 
-    private void button2_Click(object sender, EventArgs e) {
+    //
+
+#pragma warning disable IDE1006 // Naming Styles
+    private void btnLoad_Click(object sender, EventArgs e) => DoLoadData();
+    private void btnSave_Click(object sender, EventArgs e) => DoSave();
+    private void btnDelete_Click(object sender, EventArgs e) => DoDelete();
+    private void btnAddNew_Click(object sender, EventArgs e) => DoAddNew();
+    private void bsUserGroups_CurrentChanged(object sender, EventArgs e) => MoveCurrentItem();
+    private void btnAddUserToGroup_Click(object sender, EventArgs e) => AddUserToGroup();
+    private void btnRemoveUserFromGroup_Click(object sender, EventArgs e) => RemoveUserFromGroup();
+#pragma warning restore IDE1006 // Naming Styles
+
+
+    private void DoLoadData() {
+      _list = _app.UserGroups.GetDisconnectedList(x => true); // x.Name.StartsWith("R"));
+      bsUserGroups.DataSource = _list.List;
+    }
+
+    private void DoSave() { 
+      SyncUserGroupRoles();
+
       _app.UserGroups.MergeWithDisconnectedList(_list);
       int n = _app.SaveChanges();
 
       bsUserGroups.ResetBindings(false);
       Text = n.ToString();
-    }
+    } 
 
+    private void DoDelete() {
+      if (CurrentItem == null) return;
 
-    private void btnDelete_Click(object sender, EventArgs e) {
-      if (CurrentUserGroup == null) return;
-
-      _list.List.Remove(CurrentUserGroup);
+      _list.List.Remove(CurrentItem);
       bsUserGroups.ResetBindings(false);
-    }
+    } 
 
-    private void btnAddNew_Click(object sender, EventArgs e) {
-      var item = new UserGroup();
-      item.Name = $"Group {DateTime.Now.Millisecond}";
+    private void DoAddNew() {
+      var item = new UserGroup {
+        Name = $"Group {DateTime.Now.Millisecond}"
+      };
       _list.List.Add(item);
 
       bsUserGroups.Position = _list.List.Count() - 1;
       bsUserGroups.ResetBindings(false);
     }
 
-    private UserGroup CurrentUserGroup => bsUserGroups.Current as UserGroup;
+    //
+    private void MoveCurrentItem() {
+      textBox3.Text = $"Move from {PreviousItem?.Name} to {CurrentItem?.Name}\r\n" + textBox3.Text;
 
-    private User CurrentUserFromAllUsers => bsUsers.Current as User;
-    private User CurrentUserFromUsersInGroup => bsUsersInGroup.Current as User;
-    private DisconnectedList<User> AllRemainingUsersInGroup;
+      SyncUserGroupRoles();
+      //if (PreviousUserGroup != null && PreviousUserGroup != CurrentUserGroup && (PreviousUserGroup?.IsDirty ?? false)) {
+      //  switch (MessageBox.Show($"{PreviousUserGroup?.Name} has changed! save?", "", MessageBoxButtons.YesNoCancel)) {
+      //    case DialogResult.Yes:
+      //      DoSave();
+      //      PreviousUserGroup.ClearDirty();
+      //      break;
+      //    case DialogResult.No: /* reload this object or context here */ break;
+      //    case DialogResult.Cancel:
+      //      if (PreviousUserGroupPosition.HasValue)
+      //        bsUserGroups.Position = PreviousUserGroupPosition.Value;
+      //      break;
+      //  }
+      //}
 
-    private void bsUserGroups_CurrentChanged(object sender, EventArgs e) {
-      AllRemainingUsersInGroup = _app.Users.GetDisconnectedList(u => true);
-      AllRemainingUsersInGroup.List = AllRemainingUsersInGroup.List.Except(CurrentUserGroup?.Users).ToList();
-      bsUsers.DataSource = AllRemainingUsersInGroup.List;
+      CurrentItem.ClearDirty();
+      availableUsersToAddToGroup = _app.UserGroups.AvailableUsersToAddToGroup(CurrentItem).ToList(); //  AllRemainingUsersInGroup.List.Except(CurrentUserGroup?.Users).ToList();
+      bsUsers.DataSource = availableUsersToAddToGroup;
+
+      PreviousItem = CurrentItem;
+      PreviousItemPosition = bsUserGroups.Position;
     }
 
-    private void btnAddUserToGroup_Click(object sender, EventArgs e) {
-      if (CurrentUserFromAllUsers == null) return;
+    private void SyncUserGroupRoles() {
+      if (PreviousItem != null) { 
+        _app.Roles.Sync(_roles, _mapItems);  
+        _roles.ApplyTo(PreviousItem.Roles);
+      }
 
-      CurrentUserGroup.Users.Add(CurrentUserFromAllUsers);
-      AllRemainingUsersInGroup.List.Remove(CurrentUserFromAllUsers);
+      _roles = CurrentItem.Roles.ToList();
+      _mapItems = CurrentItem.Roles.Select(r => new MapItemInt {
+        Id = r.Id,
+        Name = r.Name
+      }).ToList();
+
+      mapItemBindingSource.DataSource = _mapItems;
+      mapItemBindingSource.ResetBindings(false);
+    }
+
+    // tab Users
+    private void AddUserToGroup() {
+      if (CurrentUserFromAllUsers == null) {
+        return;
+      }
+
+      CurrentItem.AddUser(CurrentUserFromAllUsers);
+      availableUsersToAddToGroup.Remove(CurrentUserFromAllUsers);
       bsUsers.ResetBindings(false);
     }
 
-    private void btnRemoveUserFromGroup_Click(object sender, EventArgs e) {
-      if (CurrentUserFromUsersInGroup == null) return;
 
-      CurrentUserGroup.Users.Remove(CurrentUserFromUsersInGroup);
-      AllRemainingUsersInGroup.List.Add(CurrentUserFromUsersInGroup);
+    private void RemoveUserFromGroup() {
+      if (CurrentUserFromUsersInGroup == null) {
+        return;
+      }
+
+      CurrentItem.RemoveUser(CurrentUserFromUsersInGroup.Id);
+      availableUsersToAddToGroup.Add(CurrentUserFromUsersInGroup);
       bsUsers.ResetBindings(false);
+    }
+
+    private void mapItemBindingSource_AddingNew_1(object sender, AddingNewEventArgs e) {
+      e.NewObject = new MapItemInt() {
+        Id = 10
+      };
     }
   }
 }

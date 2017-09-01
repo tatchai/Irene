@@ -25,6 +25,7 @@
     private void InitializeComponent() {
       this.components = new System.ComponentModel.Container();
       this.panel1 = new System.Windows.Forms.Panel();
+      this.textBox3 = new System.Windows.Forms.TextBox();
       this.button4 = new System.Windows.Forms.Button();
       this.button3 = new System.Windows.Forms.Button();
       this.button2 = new System.Windows.Forms.Button();
@@ -42,11 +43,15 @@
       this.lstUsersInGroup = new System.Windows.Forms.ListBox();
       this.bsUsersInGroup = new System.Windows.Forms.BindingSource(this.components);
       this.lstAllUsers = new System.Windows.Forms.ListBox();
+      this.bsUsers = new System.Windows.Forms.BindingSource(this.components);
       this.tabPage2 = new System.Windows.Forms.TabPage();
+      this.rolesDataGridView = new System.Windows.Forms.DataGridView();
+      this.roleBindingSource = new System.Windows.Forms.BindingSource(this.components);
+      this.mapItemBindingSource = new System.Windows.Forms.BindingSource(this.components);
       this.textBox2 = new System.Windows.Forms.TextBox();
       this.textBox1 = new System.Windows.Forms.TextBox();
       this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-      this.bsUsers = new System.Windows.Forms.BindingSource(this.components);
+      this.Column1 = new System.Windows.Forms.DataGridViewComboBoxColumn();
       this.panel1.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.bsUserGroups)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -57,12 +62,17 @@
       this.tabControl1.SuspendLayout();
       this.tabPage1.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.bsUsersInGroup)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.bsUsers)).BeginInit();
+      this.tabPage2.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.rolesDataGridView)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.roleBindingSource)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.mapItemBindingSource)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
       this.SuspendLayout();
       // 
       // panel1
       // 
+      this.panel1.Controls.Add(this.textBox3);
       this.panel1.Controls.Add(this.button4);
       this.panel1.Controls.Add(this.button3);
       this.panel1.Controls.Add(this.button2);
@@ -70,8 +80,17 @@
       this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
       this.panel1.Location = new System.Drawing.Point(0, 0);
       this.panel1.Name = "panel1";
-      this.panel1.Size = new System.Drawing.Size(803, 60);
+      this.panel1.Size = new System.Drawing.Size(803, 96);
       this.panel1.TabIndex = 0;
+      // 
+      // textBox3
+      // 
+      this.textBox3.Dock = System.Windows.Forms.DockStyle.Bottom;
+      this.textBox3.Location = new System.Drawing.Point(0, 52);
+      this.textBox3.Multiline = true;
+      this.textBox3.Name = "textBox3";
+      this.textBox3.Size = new System.Drawing.Size(803, 44);
+      this.textBox3.TabIndex = 4;
       // 
       // button4
       // 
@@ -102,7 +121,7 @@
       this.button2.TabIndex = 1;
       this.button2.Text = "&Save";
       this.button2.UseVisualStyleBackColor = true;
-      this.button2.Click += new System.EventHandler(this.button2_Click);
+      this.button2.Click += new System.EventHandler(this.btnSave_Click);
       // 
       // bsUserGroups
       // 
@@ -118,12 +137,12 @@
       this.button1.TabIndex = 0;
       this.button1.Text = "&Load";
       this.button1.UseVisualStyleBackColor = true;
-      this.button1.Click += new System.EventHandler(this.button1_Click);
+      this.button1.Click += new System.EventHandler(this.btnLoad_Click);
       // 
       // splitContainer1
       // 
       this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.splitContainer1.Location = new System.Drawing.Point(0, 60);
+      this.splitContainer1.Location = new System.Drawing.Point(0, 96);
       this.splitContainer1.Name = "splitContainer1";
       // 
       // splitContainer1.Panel1
@@ -136,7 +155,7 @@
       this.splitContainer1.Panel2.Controls.Add(this.tabControl1);
       this.splitContainer1.Panel2.Controls.Add(this.textBox2);
       this.splitContainer1.Panel2.Controls.Add(this.textBox1);
-      this.splitContainer1.Size = new System.Drawing.Size(803, 340);
+      this.splitContainer1.Size = new System.Drawing.Size(803, 304);
       this.splitContainer1.SplitterDistance = 278;
       this.splitContainer1.TabIndex = 1;
       // 
@@ -154,7 +173,7 @@
       this.dataGridView1.Name = "dataGridView1";
       this.dataGridView1.ReadOnly = true;
       this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-      this.dataGridView1.Size = new System.Drawing.Size(278, 340);
+      this.dataGridView1.Size = new System.Drawing.Size(278, 304);
       this.dataGridView1.TabIndex = 0;
       // 
       // idDataGridViewTextBoxColumn
@@ -188,7 +207,7 @@
       this.tabControl1.Location = new System.Drawing.Point(14, 83);
       this.tabControl1.Name = "tabControl1";
       this.tabControl1.SelectedIndex = 0;
-      this.tabControl1.Size = new System.Drawing.Size(495, 245);
+      this.tabControl1.Size = new System.Drawing.Size(495, 209);
       this.tabControl1.TabIndex = 2;
       // 
       // tabPage1
@@ -201,7 +220,7 @@
       this.tabPage1.Location = new System.Drawing.Point(4, 22);
       this.tabPage1.Name = "tabPage1";
       this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-      this.tabPage1.Size = new System.Drawing.Size(487, 219);
+      this.tabPage1.Size = new System.Drawing.Size(487, 183);
       this.tabPage1.TabIndex = 0;
       this.tabPage1.Text = "Users";
       this.tabPage1.UseVisualStyleBackColor = true;
@@ -236,7 +255,7 @@
       this.lstUsersInGroup.IntegralHeight = false;
       this.lstUsersInGroup.Location = new System.Drawing.Point(254, 6);
       this.lstUsersInGroup.Name = "lstUsersInGroup";
-      this.lstUsersInGroup.Size = new System.Drawing.Size(181, 208);
+      this.lstUsersInGroup.Size = new System.Drawing.Size(181, 172);
       this.lstUsersInGroup.TabIndex = 1;
       // 
       // bsUsersInGroup
@@ -254,19 +273,47 @@
       this.lstAllUsers.IntegralHeight = false;
       this.lstAllUsers.Location = new System.Drawing.Point(6, 6);
       this.lstAllUsers.Name = "lstAllUsers";
-      this.lstAllUsers.Size = new System.Drawing.Size(184, 208);
+      this.lstAllUsers.Size = new System.Drawing.Size(184, 172);
       this.lstAllUsers.TabIndex = 0;
       this.lstAllUsers.ValueMember = "CanActivate";
       // 
+      // bsUsers
+      // 
+      this.bsUsers.DataSource = typeof(Irene.Models.User);
+      // 
       // tabPage2
       // 
+      this.tabPage2.AutoScroll = true;
+      this.tabPage2.Controls.Add(this.rolesDataGridView);
       this.tabPage2.Location = new System.Drawing.Point(4, 22);
       this.tabPage2.Name = "tabPage2";
       this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-      this.tabPage2.Size = new System.Drawing.Size(487, 219);
+      this.tabPage2.Size = new System.Drawing.Size(487, 183);
       this.tabPage2.TabIndex = 1;
       this.tabPage2.Text = "Roles";
       this.tabPage2.UseVisualStyleBackColor = true;
+      // 
+      // rolesDataGridView
+      // 
+      this.rolesDataGridView.AutoGenerateColumns = false;
+      this.rolesDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+      this.rolesDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column1});
+      this.rolesDataGridView.DataSource = this.mapItemBindingSource;
+      this.rolesDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.rolesDataGridView.Location = new System.Drawing.Point(3, 3);
+      this.rolesDataGridView.Name = "rolesDataGridView";
+      this.rolesDataGridView.Size = new System.Drawing.Size(481, 177);
+      this.rolesDataGridView.TabIndex = 0;
+      // 
+      // roleBindingSource
+      // 
+      this.roleBindingSource.DataSource = typeof(Irene.Models.Role);
+      // 
+      // mapItemBindingSource
+      // 
+      this.mapItemBindingSource.DataSource = typeof(Irene.Models.MapItemInt);
+      this.mapItemBindingSource.AddingNew += new System.ComponentModel.AddingNewEventHandler(this.mapItemBindingSource_AddingNew_1);
       // 
       // textBox2
       // 
@@ -290,9 +337,16 @@
       this.errorProvider1.ContainerControl = this;
       this.errorProvider1.DataSource = this.bsUserGroups;
       // 
-      // bsUsers
+      // Column1
       // 
-      this.bsUsers.DataSource = typeof(Irene.Models.User);
+      this.Column1.DataPropertyName = "Id";
+      this.Column1.DataSource = this.roleBindingSource;
+      this.Column1.DisplayMember = "Name";
+      this.Column1.HeaderText = "Name";
+      this.Column1.Name = "Column1";
+      this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+      this.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+      this.Column1.ValueMember = "Id";
       // 
       // frmUserGroups
       // 
@@ -306,6 +360,7 @@
       this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmUserGroups_FormClosed);
       this.Load += new System.EventHandler(this.frmUserGroups_Load);
       this.panel1.ResumeLayout(false);
+      this.panel1.PerformLayout();
       ((System.ComponentModel.ISupportInitialize)(this.bsUserGroups)).EndInit();
       this.splitContainer1.Panel1.ResumeLayout(false);
       this.splitContainer1.Panel2.ResumeLayout(false);
@@ -316,8 +371,12 @@
       this.tabControl1.ResumeLayout(false);
       this.tabPage1.ResumeLayout(false);
       ((System.ComponentModel.ISupportInitialize)(this.bsUsersInGroup)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.bsUsers)).EndInit();
+      this.tabPage2.ResumeLayout(false);
+      ((System.ComponentModel.ISupportInitialize)(this.rolesDataGridView)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.roleBindingSource)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.mapItemBindingSource)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
       this.ResumeLayout(false);
 
     }
@@ -350,5 +409,11 @@
     //private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
     private System.Windows.Forms.BindingSource bsUsersInGroup;
     private System.Windows.Forms.BindingSource bsUsers;
+    private System.Windows.Forms.DataGridView rolesDataGridView;
+    private System.Windows.Forms.TextBox textBox3;
+    private System.Windows.Forms.BindingSource roleBindingSource;
+    private System.Windows.Forms.BindingSource mapItemBindingSource;
+    //private System.Windows.Forms.DataGridViewComboBoxColumn dataGridViewTextBoxColumn1;
+    private System.Windows.Forms.DataGridViewComboBoxColumn Column1;
   }
 }

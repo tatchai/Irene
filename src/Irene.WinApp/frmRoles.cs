@@ -19,17 +19,19 @@ namespace Irene.WinApp {
     public frmRoles() {
       InitializeComponent();
     }
+     
+#pragma warning disable IDE1006 // Naming Styles
+    private void frmRoles_FormClosed(object sender, FormClosedEventArgs e) => ((IDisposable)_app).Dispose();
+    private void btnLoad_Click(object sender, EventArgs e) => DoLoadData();
+    private void btnSave_Click(object sender, EventArgs e) => DoSave();
+#pragma warning restore IDE1006 // Naming Styles
 
-    private void frmRoles_Load(object sender, EventArgs e) {
-      //
-    }
-
-    private void btnLoad_Click(object sender, EventArgs e) {
-      _list = _app.Roles.GetDisconnectedList(x => true); // x.Name.StartsWith("R"));
+    private void DoLoadData() {
+      _list = _app.Roles.GetDisconnectedList(x => true); // x.Groups.Any(g => g.Id == 2)); // true); // x.Name.StartsWith("R"));
       bs1.DataSource = _list.List;
     }
-
-    private void btnSave_Click(object sender, EventArgs e) {
+    
+    private void DoSave() {
       _app.Roles.MergeWithDisconnectedList(_list);
       int n = _app.SaveChanges();
 
@@ -37,9 +39,6 @@ namespace Irene.WinApp {
       Text = n.ToString();
     }
 
-    private void frmRoles_FormClosed(object sender, FormClosedEventArgs e) {
-      ((IDisposable)_app).Dispose();
-    }
 
   }
 }

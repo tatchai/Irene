@@ -42,9 +42,12 @@
   <ItemGroup>
     <Compile Include="App.cs" />
     <Compile Include="CarService.cs" />
+    <Compile Include="CollectionHelper.cs" />
     <Compile Include="DisconnectedList.cs" />
     <Compile Include="IService_T.cs" />
+    <Compile Include="IUserGroupService.cs" />
     <Compile Include="IUserService.cs" />
+    <Compile Include="ObservableListSourceExtensions.cs" />
     <Compile Include="RoleService.cs" />
     <Compile Include="ServiceBase_T.cs" />
     <Compile Include="UserGroupService.cs" />
